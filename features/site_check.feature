@@ -5,8 +5,8 @@ Feature: Monitor site status
 	
 Scenario: check site status
 	When detect status
-	And site is down
-	Then notification mail is sent
+	And site is up
+	Then no notification mail is sent
 
 		
 

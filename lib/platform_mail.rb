@@ -5,8 +5,8 @@ require 'rspec'
 options = { :address              => "smtp.gmail.com",
             :port                 => 587,
             :domain               => 'localhost',
-            :user_name            => 'agiletourchina@gmail.com',
-            :password             => 'testtest',
+            :user_name            => 'agiletourcn@gmail.com',
+            :password             => 'AgileTourCn',
             :authentication       => 'plain',
             :enable_starttls_auto => true  }
             
@@ -18,7 +18,7 @@ class PlatformMail
 
   def send_mail status 
     Mail.deliver do
-      from  'agiletourchina@agiletour.org'
+      from  'agiletourcn@gmail.com'
       to  'agile-tour-china-core@googlegroups.com'
       subject 'agiletour.cn is ' + status
       body 'agiletour.cn is ' + status
@@ -26,8 +26,14 @@ class PlatformMail
   end
   
   def self.assert_email_received
-    Gmail.connect('agiletourchina@gmail.com', 'testtest') do |gmail|
-      gmail.inbox.count(:unread, :from => "agiletourchina@gmail.com").should > 0
+    Gmail.connect('agiletourcn@gmail.com', 'AgileTourCn') do |gmail|
+      gmail.inbox.count(:unread, :from => "agiletourcn@gmail.com").should > 0
+    end
+  end
+  
+  def self.assert_no_email_received
+    Gmail.connect('agiletourcn@gmail.com', 'AgileTourCn') do |gmail|
+      gmail.inbox.count(:unread, :from => "agiletourcn@gmail.com").should == 0
     end
   end
 end

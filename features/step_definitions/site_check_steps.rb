@@ -8,14 +8,18 @@ When /^detect status$/ do
   @checker.inform_status
 end
 
-When /^site is down$/ do
+When /^site is up$/ do
   
 end
 
-Then /^notification mail is sent$/ do
-  assert_email_received 
+Then /^no notification mail is sent$/ do
+  assert_no_email_received 
 end
 
 def assert_email_received 
   PlatformMail.assert_email_received
+end
+
+def assert_no_email_received 
+  PlatformMail.assert_no_email_received
 end
