@@ -1,17 +1,13 @@
-Feature: Report website is down
-	In order to make sure the site is not broken
+Feature: Monitor site status
+	In order to avoid timely restore of agiletour.cn
 	As website admin
-	I want to be informed of website down
+	I want to monitor the status of website
 	
-Scenario: site is up
-	When the site is ok
-	Then site status is ok
-	
-Scenario: site is down
-	When the site is down
-	Then site status is down
-	
-	
+Scenario: check site status
+	When detect status
+	And site is down
+	Then notification mail is sent
+
 		
 
 	  

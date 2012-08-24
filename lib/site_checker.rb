@@ -1,19 +1,26 @@
-require 'open-uri'
-require 'net/http'
+require_relative 'platform_mail'
+require_relative 'platform_net'
 
 class SiteChecker
   
-  def initialize url
-    @url = url
+  def initialize mail, net
+    @mail = mail
+    @net = net
   end
   
-  def status
+  def inform_status
+    status = check_site
+    @mail.send_mail(status) if (status == "down")
+  end
+  
+  private
+  def check_site
     result = "ok"
     begin
-      page = open(@url)
+      page = @net.check
       body = page.read[0, 500]
     rescue OpenURI::HTTPError
-      result = "database down"
+      result = "down"
     end
     result
   end

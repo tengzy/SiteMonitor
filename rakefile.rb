@@ -12,5 +12,4 @@ end
 
 desc 'run specs'
 RSpec::Core::RakeTask.new do|t|
-  t.pattern = "*_spec.rb"
 end

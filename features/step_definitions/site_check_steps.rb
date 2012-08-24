@@ -1,18 +1,21 @@
 require "site_checker"
 require "rspec"
+require "platform_mail"
+require "platform_net"
 
-When /^the site is ok$/ do
-  @checker = SiteChecker.new "http://www.agiletour.cn"
+When /^detect status$/ do
+  @checker = SiteChecker.new PlatformMail.new, PlatformNet.new("http://www.agiletour.cn")
+  @checker.inform_status
 end
 
-Then /^site status is ok$/ do
-  @checker.status.should == "ok"
+When /^site is down$/ do
+  
 end
 
-When /^the site is down$/ do
-  pending # express the regexp above with the code you wish you had
+Then /^notification mail is sent$/ do
+  assert_email_received 
 end
 
-Then /^site status is down$/ do
-  pending # express the regexp above with the code you wish you had
+def assert_email_received 
+  PlatformMail.assert_email_received
 end
